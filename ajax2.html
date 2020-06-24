@@ -1,0 +1,71 @@
+
+<style>
+	.orange{
+		width: 70%; margin: auto; display: flex;
+	}
+	.txt{background-color: aquamarine;}
+	.js{background-color: aqua;}
+	.json{background-color: aliceblue;}
+	.html{background-color: pink;}
+</style>
+
+
+<div class="orange">
+	<div class="txt">
+	</div>	
+	<div class="js">
+	</div>
+	<div class="json">
+	</div>
+	<div class="html">
+	</div>
+</div>
+
+<script>
+	console.log("global this", this);
+	let jsonResults;
+	
+
+	(function loadDoc() {
+		console.log("loadDoc this", this);
+
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(this.responseText, this);
+				document.querySelector(".txt").innerHTML = this.responseText;
+			}
+		};
+		xhttp.open("GET", "https://raw.githubusercontent.com/bresleveloper/db/master/ajax/say%20ho.txt");
+		xhttp.send();
+		console.log("after send");
+
+	})();
+
+	function smartLoadDoc(url, targetEl){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				targetEl.innerHTML = this.responseText;
+				//jsonResults = JSON.parse(this.responseText)
+				//for on jsonResults.students
+				//redner to html <li>
+			}
+		};
+		xhttp.open("GET", url);
+		xhttp.send();
+	}
+
+	smartLoadDoc(
+		"https://raw.githubusercontent.com/bresleveloper/db/master/ajax/someDB.json", 
+		document.querySelector(".json"))
+
+	smartLoadDoc(
+		"https://raw.githubusercontent.com/bresleveloper/db/master/ajax/someDB.js", 
+		document.querySelector(".js"))
+
+	smartLoadDoc(
+		"https://raw.githubusercontent.com/bresleveloper/db/master/ajax/comp-calc.html", 
+		document.querySelector(".html"))
+
+</script>

@@ -1,0 +1,104 @@
+<style>
+	.orange{
+		width: 70%; margin: auto; display: flex;
+	}
+</style>
+
+<h1>async!</h1>
+
+
+<div class="orange">
+	<div class="sync">
+		<button id="btn-sync">start sync jobs</button>
+		<ul id="ul-sync"></ul>
+	</div>
+	<div class="async">
+		<button id="btn-async">start async jobs</button>
+		<ul id="ul-async"></ul>
+	</div>
+
+	<div class="long">
+		<button id="btn-long">start long jobs</button>
+		<ul id="ul-long"></ul>
+	</div>
+</div>
+
+<script>
+	let jobs = {
+		a : function(){ return "a job"; },
+		b : function(){ return "b job"; },
+		c : function(){ return "c job"; },
+		d : function(){ return "d job"; },
+
+		e : function(callback){  setTimeout(() => { callback("e job") }, 250); },
+		f : function(shuki){  setTimeout(() => { shuki("f job") }, 2000); },
+		g : function(callback){  setTimeout(() => { callback("g job") }, 1250); },
+		h : function(callback){  setTimeout(() => { callback("h job") }, 800); },
+	}
+
+
+
+	/** async ***/
+	let asyncUL = document.querySelector("#ul-async")
+
+	document.querySelector("#btn-async").onclick = function(){
+		asyncUL.innerHTML += CreateLiWithTime("click start")
+		jobs.e(function(msg){
+			asyncUL.innerHTML += CreateLiWithTime(msg);
+		});
+		asyncUL.innerHTML += CreateLiWithTime("after e")
+
+		jobs.f(function(msg){
+			asyncUL.innerHTML += CreateLiWithTime(msg);
+		});
+		asyncUL.innerHTML += CreateLiWithTime("after f")
+
+
+		function myCallback(msg){asyncUL.innerHTML += CreateLiWithTime(msg);}
+
+		jobs.g(myCallback);
+		jobs.h(myCallback);
+		asyncUL.innerHTML += CreateLiWithTime("after gh")
+
+	}
+
+	
+	/** long ***/
+	let longUL = document.querySelector("#ul-long")
+	document.querySelector("#btn-long").onclick = function(){
+		jobs.e(function(msg){
+			longUL.innerHTML += CreateLiWithTime(msg);
+			jobs.f(function(msg){
+				longUL.innerHTML += CreateLiWithTime(msg);
+				jobs.g(function(msg){
+					longUL.innerHTML += CreateLiWithTime(msg);
+					jobs.h(function(msg){
+						longUL.innerHTML += CreateLiWithTime(msg);
+					});
+				});
+			});
+		});
+
+
+
+	}
+
+
+
+
+
+	
+	function CreateLiWithTime(txt){
+		let d = new Date();
+		return `<li>${d.getSeconds()}:${d.getMilliseconds()} - ${txt}</li>`
+	}
+
+	let syncUL = document.querySelector("#ul-sync")
+	document.querySelector("#btn-sync").onclick = function(){
+		syncUL.innerHTML += CreateLiWithTime(jobs.a());
+		syncUL.innerHTML += CreateLiWithTime(jobs.b());
+		syncUL.innerHTML += CreateLiWithTime(jobs.c());
+		syncUL.innerHTML += CreateLiWithTime(jobs.d());
+	}
+
+</script>
