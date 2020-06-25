@@ -22,6 +22,27 @@
 
 <script>
     let jsonResults
+    let tamples = {
+        tampleA = `<li>[word]</li>`
+    }
+    let json = new JSON
+
+    function render(tample,arr) {
+        
+        let h = ''
+        let pattern = /\[(.*)\]/;
+        let matches = tample.match(pattern)
+
+        arr.forEach(element => {
+            tampleRen = tample
+            matches.forEach(match =>{
+                tampleRen = tampleRen.replace(match[0],element[sun])
+            })
+            h+=tampleRen
+        });
+        return h
+    }
+    
     function  smartLoadDocs(url,syntax) {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function (params) {
@@ -34,8 +55,25 @@
         xhttp.send();
     }
 
+    function  smartLoadJson(url,syntax) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (params) {
+            if(this.readyState == 4, this.status==200){
+                
+                jsonResults = json.parse(this.responseText);
+                render(tamples,jsonResults.students)
+            }
+            
+        }
+        xhttp.open('GET',url);
+        xhttp.send();
+    }
+
+    
+
     smartLoadDocs("https://raw.githubusercontent.com/bresleveloper/db/master/ajax/say%20ho.txt",document.querySelector('.txt'));
     smartLoadDocs('https://raw.githubusercontent.com/bresleveloper/db/master/ajax/comp-calc.html',document.querySelector('.html'));
     smartLoadDocs("https://raw.githubusercontent.com/bresleveloper/db/master/ajax/someDB.js",document.querySelector('.js'));
-    smartLoadDocs('"https://raw.githubusercontent.com/bresleveloper/db/master/ajax/someDB.json"',document.querySelector('.json'));
+    // smartLoadJson('"https://raw.githubusercontent.com/bresleveloper/db/master/ajax/someDB.json"',document.querySelector('.json'));
+    
 </script>
