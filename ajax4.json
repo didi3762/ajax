@@ -1,7 +1,20 @@
 {
-"coloros" :{
+"animalsWords" :{
         "HebWords": ["ארנב", "תנין", "גמל", "חמור", "קוף", "צפרדע", "סוס", "פרה", "תרנגול", "ברווז", "יונה", "ציפור", "שועל", "אריה", "צב", "תוכי", "צבי", "אייל", "חתול", "כלב", "נמר", "זאב", "זברה", "סנאי", "פיל", "כבש", "דבורה", "נשר", "דב", "זבוב", "נחש", "טווס", "ינשוף", "מדוזה", "דג", "נמלה", "עכבר", "זיקית", "לטאה", "תמנון" ],
 
         "englishWords" : ["rabbit", "crocodile", "camel", "donkey", "monkey", "frog", "horse", "cow", "rooster", "duck", "pigeon", "bird", "fox", "lion", "turtle", "parrot", "deer", "deer", "cat", "dog", "leopard", "wolf", "zebra", "squirrel", "elephant", "Lamb", "bee", "eagle", "bear", "fly", "snake", "peacock", "owl", "jellyfish", "fish", "ant", "mouse", "chameleon", "lizard", "octopus"]
-        }
+        },
+
+"persons" :[
+        {"name":"didi", "sumDoct":0},
+        {"name":"bibi", "sumDoct":0},
+        {"name":"gigi", "sumDoct":0},
+        {"name":"fifi", "sumDoct":0},
+        {"name":"sisi", "sumDoct":0},
+        {"name":"lili", "sumDoct":0},
+        {"name":"riri", "sumDoct":0},
+        {"name":"mimi", "sumDoct":0}
+]
+
+
 }
